@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>GiftCads</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/style.css'%}">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+  
+    <!-- Fengyuan Chen's Datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body style="background-color:#DCDCDC">
+        <header class="header" style="background-color: #A9A9A9  ">
+            
+
+<nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="container">
+     <a href="{% url 'home' %}" class="navbar-brand">
+
+                <img style="width:180px;height:40px;" src="{% static 'logo3.png' %}" alt="logo" class="d-none d-lg-block">
+                <span class="sr-only">Головна</span>
+            </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+         {% if user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'cards:create' %}">Нова карта <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'about' %}">Про нас</a>
+      </li>
+     
+      <li class="nav-item">
+        <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-dark" action="{% url 'accounts:logout' %}" method="post" type="submit">Вийти</button>
+    </form>
+      </li>
+      {% else %}
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:signup' %}">Зареєструватися</a>
+      </li>
+    {% endif %}
+ </ul>
+ {% if user.is_authenticated %}
+
+
+ <form class="form-inline my-2 my-lg-0" action="{% url 'cards:search_results' %}" method="get">
+      <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    {% endif %}
+  </div>
+    </div>
+</nav>
+                                    
+        </header>
+        <div class="container" >
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+
+
+
+
+<footer class="footer" style="background-color: #A9A9A9 ">
+    <div class="footer__block">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 mb-5">
+                    <p></p>
+                    <h4 class="h5">Про GiftCards</h4>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, consectetur. Omnis alias soluta, perspiciatis possimus. Itaque ab unde id ullam.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer__copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-md-left text-center">
+                    <p>&copy;2020 GiftCards (c)</p><a href="https://www.instagram.com/d.shapovaliuk">d.shapovaliuk</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</html>

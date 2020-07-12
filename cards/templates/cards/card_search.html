@@ -1,0 +1,104 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+
+           
+
+
+
+           
+            
+<style> @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+
+.card {
+    width: 460px;
+    border: none;
+    border-radius: 10px;
+    background: #4E68C7;
+    margin-left:20px;
+    margin-bottom: 20px;
+}
+
+p.top {
+    font-size: 14px
+}
+
+
+.fa-euro-sign {
+    font-size: 27px;
+    color: #B3C4FA
+}
+
+.card-content p {
+    line-height: 18px;
+    font-size: 11px;
+    color: #abbef6
+}
+
+.btn-primary {
+    border: none;
+    border-radius: 6px;
+    background-color: #647EDF;
+    padding-top: 0;
+    height: 46px
+}
+
+.btn-primary span {
+    font-size: 13px;
+    color: #D1E2FF;
+    margin-right: 10px
+}
+
+.fa-arrow-right {
+    font-size: 12px;
+    color: #D1E2FF
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #647EDF;
+    box-shadow: none
+}</style>
+<h1 style=" margin-left: auto;
+    margin-right: auto;
+    width: 6em">Результат:</h1>
+
+                        {% for card in object_list %}
+<div class="container d-flex justify-content-center">
+    
+
+    <div class="card mt-5 p-4 text-white">
+        <p class="top mb-1">{{ card.series }}</p>
+        <div class="d-flex flex-row justify-content-between text-align-center xyz">
+            <h2><i class="fas fa-euro-sign"></i><span>${{ card.amount }}</span></h2>
+            
+        </div>
+
+        <div class="card-content mt-4">
+            <h4>{{ card.number }}{% if card.status == 'Неактивована' %}
+                                        <span class="badge featured-badge badge-warning">Неактивована</span>
+                                    {% elif card.status == 'Активована'%}
+                                        <span class="badge featured-badge badge-success">Активована </span>
+                                    {% else %}
+                                        <span style="color: #ffffff;" class="badge featured-badge badge-danger">Прострочена</span>
+                                    {% endif %}</h4>
+            
+
+            <p>Випущена: {{ card.date_of_issue }} <br>Закічується: {{ card.expiration_date }}</p>
+        </div>
+        <div class="mt-2"> 
+            <a href="{% url 'cards:detail' number=card.number %}" class="btn btn-block btn-lg btn-primary">
+                <span>Переглянути</span>
+                <i class="fas fa-arrow-right"></i></a> 
+            </div>
+    </div>
+       </div>
+ {% endfor %}
+ 
+
+
+
+
+
+{% endblock %}

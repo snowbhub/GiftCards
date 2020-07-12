@@ -1,0 +1,14 @@
+{% extends 'base_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="form-group">
+        <h2>Сиворити нову карту</h2>
+        <form class="site-form" action="{% url 'cards:create' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input class="btn btn-success" type="submit" value="Створити">
+        </form>
+    </div>
+    <script src="/static/slugify.js"></script> 
+{% endblock %}

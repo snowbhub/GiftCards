@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>Вхід</h1>
+    <form class="site-form" action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+        {% endif %}
+        <input class="btn btn-success" type="submit" value="Вхід" />
+    </form>
+    <p>Немає акаунту?  <a href="{% url 'accounts:signup' %}" class="btn btn-success">Зареєструватися</a></p>
+{% endblock %}
